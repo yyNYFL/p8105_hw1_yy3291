@@ -73,3 +73,26 @@ print(hw1_data_frame)
 
 ```
 
+# Section 5: Trying to take the mean of each variable in the data frame 
+
+```{r}
+# Using the pull function to take the variable random_sample out of the data frame
+hw1_data_frame %>% pull(RandomSample)
+
+# Assigning a value to the mean of the numeric random_sample
+numeric_mean <- mean(random_sample)
+print(numeric_mean)
+
+# Trying to take the mean of the logical vector
+logical_mean <- mean(logical_vector)
+print(logical_mean)
+
+# This time trying with the factor variable
+factor_mean <- mean(factor_vector)
+#This does not work because the variable is not numeric or logical
+?pull()
+?sapply
+
+```
+
+

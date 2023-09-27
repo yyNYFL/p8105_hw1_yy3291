@@ -1,44 +1,75 @@
 ---
-title: "P8105_HW1"
+title: "Homework 1"
 author: "Youssra Yemmas"
 date: "2023-09-24"
 output: html_document
 ---
 
-### This Line of code loads the necessary packages
+# Section 0: This Line of code loads the necessary packages
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(moderndive)
-knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## This chunk of code loads the early_january_weather data set and describes it
-##I first used the view function within tibble to view in a separate window all of the 15 variables and 358 observations contained in the dataset. It allows me to see all the variable names and observation: origin(EWR), year(2013), month(01), day(01), hour, temp, dewp, humid, wind_dir, wind_speed, wind_gust, precip, pressure, visib, time_hour,
+# Section 1: This chunk of code loads the early_january_weather data set and describes it
+### I first used the view function within tibble to view in a separate window all of the 15 variables and 358 observations contained in the dataset. It allows me to see all the variable names and observation: origin(EWR), year(2013), month(01), day(01), hour, temp, dewp, humid, wind_dir, wind_speed, wind_gust, precip, pressure, visib, time_hour,
 ```{r}
 data("early_january_weather")
 view(early_january_weather)
 ```
 
-## This chunk of code looks at some important values of some of the variables 
+# Section 2: This chunk of code looks at some important values of some of the variables
+### This is how I can see there are 15 columns and 358 rows. I can also see that the mean temperature is 39.58212, the mean dew point is 28.05709, the average humidity is 56.4767, and the average windspeed is 8.225827.
 ```{r}
+# Presenting the number of rows in the data frame
+nrow(early_january_weather)
+
+# Presenting the number of columns in the data frame
+ncol(early_january_weather)
+
+# Calculating the means of four numeric variables
+mean(early_january_weather$temp)
+mean(early_january_weather$dewp)
+mean(early_january_weather$humid)
+mean(early_january_weather$wind_speed)
+```
+
+# Section 3: Making a plot of the temperature variable as y versus the time in hours variable as the x. 
+### I notice from the plot that there seems to be an upward trend of temperature across time but there is a lot of variability within as the temperature goes from above 40 degrees to below 25 in the first hours of Jan 07. Utilizing the variabile of humidity to color the points reveals that humidity may be a contributing factor for some of the large variability in temperatures as point on the higher end of the temperature scale tend to be lighter colored indicating higher humidity. 
+```{r}
+ggplot(data = early_january_weather, 
+       mapping = aes(x = time_hour, y = temp)) + geom_point() + geom_point( mapping = aes(x = time_hour, y = temp, color = humid))
+ggsave("temp_time.pdf")
+```
+
+# Section 4: Creating a data frame comprised of a random sample of size 10 from a standard Normal distribution, a logical vector indicating whether elements of the sample are greater than 0, a character vector of length 10, and a factor vector of lenght 10, with 3 different factor levels.
+
+```{r}
+# Set a seed for reproducibility
+set.seed(123)
+
+# Create a random sample of size 10 from a standard Normal distribution
+random_sample <- rnorm(10)
+
+# Create a logical vector indicating whether elements of the sample are greater than 0
+logical_vector <- random_sample > 0
+
+# Create a character vector of length 10
+char_vector <- c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J")
+
+# Create a factor vector of length 10 with 3 different factor levels
+factor_vector <- factor(sample(1:3, 10, replace = TRUE), levels = 1:3, labels = c("Level1", "Level2", "Level3"))
+
+# Create the data frame
+hw1_data_frame <- data.frame(
+  RandomSample = random_sample,
+  IsGreaterThanZero = logical_vector,
+  CharacterVector = char_vector,
+  FactorVector = factor_vector
+)
+
+# Display the data frame
+print(hw1_data_frame)
 
 ```
 
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

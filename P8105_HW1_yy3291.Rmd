@@ -5,11 +5,25 @@ date: "2023-09-24"
 output: html_document
 ---
 
+### This Line of code loads the necessary packages
 ```{r setup, include=FALSE}
+library(tidyverse)
+library(moderndive)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## This chunk of code loads the early_january_weather data set and describes it
+##I first used the view function within tibble to view in a separate window all of the 15 variables and 358 observations contained in the dataset. It allows me to see all the variable names and observation: origin(EWR), year(2013), month(01), day(01), hour, temp, dewp, humid, wind_dir, wind_speed, wind_gust, precip, pressure, visib, time_hour,
+```{r}
+data("early_january_weather")
+view(early_january_weather)
+```
+
+## This chunk of code looks at some important values of some of the variables 
+```{r}
+
+```
+
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
